@@ -4,6 +4,7 @@ export default {
     overview: '概要',
     inventory: '在庫',
     orders: '注文',
+    restocking: '補充',
     finance: '財務',
     demandForecast: '需要予測',
     companyName: '触媒コンポーネンツ',
@@ -106,6 +107,12 @@ export default {
     title: '注文',
     description: '顧客注文の表示と管理',
     allOrders: 'すべての注文',
+    submittedOrders: '送信済み注文',
+    submittedOrdersEmpty: '補充注文はまだ送信されていません。',
+    submittedDate: '送信日',
+    leadTime: 'リードタイム',
+    leadTimeDays: '{days}日',
+    restockCustomer: '社内補充',
     totalOrders: '総注文数',
     totalRevenue: '総収益',
     avgOrderValue: '平均注文額',
@@ -185,6 +192,34 @@ export default {
       change: '変化',
       trend: 'トレンド',
       period: '期間'
+    }
+  },
+
+  // Restocking
+  restocking: {
+    title: '補充',
+    description: '予算を設定し、優先度の高い予測品目を補充します',
+    budget: '利用可能な予算',
+    budgetHelp: 'このサイクルで補充に使える金額をドラッグして設定します',
+    allocated: '割り当て済み',
+    remaining: '残り',
+    itemsRecommended: '推奨品目数',
+    recommendations: '推奨補充',
+    noRecommendations: '予算を増やすと補充の推奨が表示されます',
+    placeOrder: '注文する',
+    placing: '注文を送信中...',
+    orderPlaced: '補充注文 {orderNumber} を送信しました。予定配達日 {date}。',
+    partial: '一部のみ資金充当',
+    viewInOrders: '注文で表示',
+    table: {
+      sku: 'SKU',
+      itemName: '品目名',
+      trend: 'トレンド',
+      unitCost: '単価',
+      demandGap: '需要ギャップ',
+      quantity: '補充数量',
+      lineCost: '小計',
+      leadTime: 'リードタイム'
     }
   },
 
