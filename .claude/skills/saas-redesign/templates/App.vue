@@ -1,3 +1,10 @@
+<!--
+  TEMPLATE — client/src/App.vue  (sidebar shell)
+  Reference for vue-expert. RECONCILE against the live App.vue before applying:
+  the <script> below must keep ALL existing task/modal logic verbatim — only the
+  sidebar state (sidebarCollapsed / sidebarOpen) is new. The <style> block is the
+  full global stylesheet: tokens + shell + restyled shared primitives.
+-->
 <template>
   <div
     class="app-shell"
@@ -90,7 +97,7 @@ export default {
     const showTasks = ref(false)
     const apiTasks = ref([])
 
-    // --- Sidebar state ---------------------------------------------------
+    // --- Sidebar state (new) ------------------------------------------------
     const sidebarCollapsed = ref(localStorage.getItem(SIDEBAR_KEY) === '1')
     const sidebarOpen = ref(false)
 
@@ -102,7 +109,7 @@ export default {
     // Close the mobile drawer whenever the route changes.
     watch(() => route.path, () => { sidebarOpen.value = false })
 
-    // Merge mock tasks from currentUser with API tasks
+    // --- Tasks (unchanged from the original App.vue) ----------------------
     const tasks = computed(() => {
       return [...currentUser.value.tasks, ...apiTasks.value]
     })
@@ -118,7 +125,6 @@ export default {
     const addTask = async (taskData) => {
       try {
         const newTask = await api.createTask(taskData)
-        // Add new task to the beginning of the array
         apiTasks.value.unshift(newTask)
       } catch (err) {
         console.error('Failed to add task:', err)
@@ -127,17 +133,13 @@ export default {
 
     const deleteTask = async (taskId) => {
       try {
-        // Check if it's a mock task (from currentUser)
         const isMockTask = currentUser.value.tasks.some(t => t.id === taskId)
-
         if (isMockTask) {
-          // Remove from mock tasks
           const index = currentUser.value.tasks.findIndex(t => t.id === taskId)
           if (index !== -1) {
             currentUser.value.tasks.splice(index, 1)
           }
         } else {
-          // Remove from API tasks
           await api.deleteTask(taskId)
           apiTasks.value = apiTasks.value.filter(t => t.id !== taskId)
         }
@@ -148,14 +150,10 @@ export default {
 
     const toggleTask = async (taskId) => {
       try {
-        // Check if it's a mock task (from currentUser)
         const mockTask = currentUser.value.tasks.find(t => t.id === taskId)
-
         if (mockTask) {
-          // Toggle mock task status
           mockTask.status = mockTask.status === 'pending' ? 'completed' : 'pending'
         } else {
-          // Toggle API task
           const updatedTask = await api.toggleTask(taskId)
           const index = apiTasks.value.findIndex(t => t.id === taskId)
           if (index !== -1) {
@@ -261,9 +259,6 @@ body {
 .app-shell {
   --sidebar-w: 264px;
   min-height: 100vh;
-  /* Contain the off-canvas sidebar without creating a scroll container
-     (clip keeps position: sticky on the topbar / FilterBar working). */
-  overflow-x: clip;
 }
 
 .app-shell.sidebar-collapsed {

@@ -7,8 +7,12 @@ export default {
     restocking: '補充',
     finance: '財務',
     demandForecast: '需要予測',
+    reports: 'レポート',
     companyName: '触媒コンポーネンツ',
-    subtitle: '在庫管理システム'
+    subtitle: '在庫管理システム',
+    collapseSidebar: '折りたたむ',
+    expandSidebar: '展開する',
+    openMenu: 'メニューを開く'
   },
 
   // Dashboard
