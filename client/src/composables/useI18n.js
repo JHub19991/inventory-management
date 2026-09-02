@@ -52,7 +52,18 @@ export function useI18n() {
   }
 
   const replacePlaceholders = (text, params) => {
-    return text.replace(/\{(\w+)\}/g, (match, key) => {
+    let result = text
+
+    // Pluralization: "singular | plural" picks a form based on params.count.
+    if (result.includes(' | ')) {
+      const forms = result.split(' | ')
+      const count = Number(params.count)
+      result = (!Number.isNaN(count) && Math.abs(count) === 1)
+        ? forms[0]
+        : (forms[1] !== undefined ? forms[1] : forms[0])
+    }
+
+    return result.replace(/\{(\w+)\}/g, (match, key) => {
       return params[key] !== undefined ? params[key] : match
     })
   }

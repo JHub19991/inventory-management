@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 Factory Inventory Management System Demo with GitHub integration - Full-stack application with Vue 3 frontend, Python FastAPI backend, and in-memory mock data (no database).
 
 > ⚠️ **This repository and any fork you create are PUBLIC.** Do not commit credentials, internal hostnames, or private registry URLs. `client/.npmrc` pins the public npm registry and `client/package-lock.json` is gitignored to prevent locally-configured registries from leaking into commits — leave both in place.
@@ -41,6 +43,41 @@ uv run python main.py
 cd client
 npm install && npm run dev
 ```
+
+## Commands
+
+```bash
+# Run all backend tests
+cd server && uv run pytest ../tests/backend/ -v
+
+# Run a single test file
+cd server && uv run pytest ../tests/backend/test_orders.py -v
+
+# Run a single test
+cd server && uv run pytest ../tests/backend/test_orders.py::TestOrdersEndpoints::test_get_all_orders -v
+
+# Run tests with coverage
+cd server && uv run pytest ../tests/backend/ --cov=. -v
+```
+
+## Custom Slash Commands
+
+- `/start` — kill any existing servers on ports 3000/8001, then start both
+- `/stop` — kill processes on ports 3000/8001
+- `/test` — run full test suite with report
+- `/optimize` — review and optimize code quality
+- `/demo-branch` — set up a fresh demo branch
+- `/reset-branch` — reset current branch to a clean state
+
+## MCP Servers
+
+Configured in `.mcp.json`:
+- **GitHub** (`mcp__github__*`) — requires `GITHUB_PERSONAL_ACCESS_TOKEN` env var
+- **Playwright** (`mcp__playwright__*`) — browser automation for E2E testing
+
+## Hooks
+
+A `UserPromptSubmit` hook runs `ruff` (Python) and `eslint` (JS/Vue) linting when a prompt contains "commit". It will block the commit if linting fails — fix lint errors before committing.
 
 ## Key Patterns
 
