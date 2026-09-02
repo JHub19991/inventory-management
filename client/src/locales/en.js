@@ -7,8 +7,12 @@ export default {
     restocking: 'Restocking',
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
+    reports: 'Reports',
     companyName: 'Catalyst Components',
-    subtitle: 'Inventory Management System'
+    subtitle: 'Inventory Management System',
+    collapseSidebar: 'Collapse',
+    expandSidebar: 'Expand',
+    openMenu: 'Open menu'
   },
 
   // Dashboard
@@ -181,7 +185,7 @@ export default {
     increasingDemand: 'Increasing Demand',
     stableDemand: 'Stable Demand',
     decreasingDemand: 'Decreasing Demand',
-    itemsCount: '{count} items',
+    itemsCount: '{count} item | {count} items',
     more: 'more...',
     demandForecasts: 'Demand Forecasts',
     table: {
